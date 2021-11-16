@@ -12,10 +12,10 @@ class ProductManagerTests: XCTestCase {
     
     var manager: ProductManager!
     let client = Client(name: "Cafe")
-    var products = Product(name: "Coffee beans")
+    var product = Product(name: "Coffee beans")
     
     override func setUpWithError() throws {
-        manager = ProductManager(product: products, client: client)
+        manager = ProductManager(product: product, client: client)
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
@@ -78,6 +78,15 @@ class ProductManagerTests: XCTestCase {
         manager.returnFromClient()
         XCTAssertEqual(manager.product.count, 1)
         XCTAssertEqual(manager.client.stockCount, 0)
+    }
+    
+    func testReturnFromClient_ShouldNotReturn_WhenStockCountZero() {
+        XCTAssertEqual(manager.client.stockCount, 0)
+        XCTAssertEqual(manager.product.count, 0)
+        
+        manager.returnFromClient()
+        XCTAssertEqual(manager.client.stockCount, 0)
+        XCTAssertEqual(manager.product.count, 0)
     }
     
     

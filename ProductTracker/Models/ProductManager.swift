@@ -28,7 +28,9 @@ class ProductManager {
     }
     
     func returnFromClient() {
-        client.sell()
-        product.countup()
+        if client.stockCount > 0 {
+            client.sell()
+            product.countup()
+        }
     }
 }
