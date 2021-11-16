@@ -13,9 +13,12 @@
 		DA64342C2743457B00AD471E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA64342A2743457B00AD471E /* Main.storyboard */; };
 		DA64342E2743457D00AD471E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA64342D2743457D00AD471E /* Assets.xcassets */; };
 		DA6434312743457D00AD471E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA64342F2743457D00AD471E /* LaunchScreen.storyboard */; };
-		DA64343C2743457D00AD471E /* ProductTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA64343B2743457D00AD471E /* ProductTrackerTests.swift */; };
 		DA6434462743457D00AD471E /* ProductTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6434452743457D00AD471E /* ProductTrackerUITests.swift */; };
 		DA6434482743457D00AD471E /* ProductTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6434472743457D00AD471E /* ProductTrackerUITestsLaunchTests.swift */; };
+		DA643456274345D400AD471E /* ProductTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA643455274345D400AD471E /* ProductTests.swift */; };
+		DA6434582743485A00AD471E /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6434572743485A00AD471E /* Product.swift */; };
+		DA64345A27434A5D00AD471E /* ProductManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA64345927434A5D00AD471E /* ProductManagerTests.swift */; };
+		DA64345C27434C5A00AD471E /* ProductManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA64345B27434C5A00AD471E /* ProductManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,10 +48,13 @@
 		DA6434302743457D00AD471E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA6434322743457D00AD471E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA6434372743457D00AD471E /* ProductTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProductTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA64343B2743457D00AD471E /* ProductTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTrackerTests.swift; sourceTree = "<group>"; };
 		DA6434412743457D00AD471E /* ProductTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProductTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6434452743457D00AD471E /* ProductTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTrackerUITests.swift; sourceTree = "<group>"; };
 		DA6434472743457D00AD471E /* ProductTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DA643455274345D400AD471E /* ProductTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTests.swift; sourceTree = "<group>"; };
+		DA6434572743485A00AD471E /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		DA64345927434A5D00AD471E /* ProductManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductManagerTests.swift; sourceTree = "<group>"; };
+		DA64345B27434C5A00AD471E /* ProductManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 		DA6434232743457B00AD471E /* ProductTracker */ = {
 			isa = PBXGroup;
 			children = (
+				DA6434542743459600AD471E /* Models */,
 				DA6434242743457B00AD471E /* AppDelegate.swift */,
 				DA6434262743457B00AD471E /* SceneDelegate.swift */,
 				DA6434282743457B00AD471E /* ViewController.swift */,
@@ -113,7 +120,8 @@
 		DA64343A2743457D00AD471E /* ProductTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
-				DA64343B2743457D00AD471E /* ProductTrackerTests.swift */,
+				DA643455274345D400AD471E /* ProductTests.swift */,
+				DA64345927434A5D00AD471E /* ProductManagerTests.swift */,
 			);
 			path = ProductTrackerTests;
 			sourceTree = "<group>";
@@ -125,6 +133,15 @@
 				DA6434472743457D00AD471E /* ProductTrackerUITestsLaunchTests.swift */,
 			);
 			path = ProductTrackerUITests;
+			sourceTree = "<group>";
+		};
+		DA6434542743459600AD471E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DA6434572743485A00AD471E /* Product.swift */,
+				DA64345B27434C5A00AD471E /* ProductManager.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +215,7 @@
 					};
 					DA6434362743457D00AD471E = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 						TestTargetID = DA6434202743457B00AD471E;
 					};
 					DA6434402743457D00AD471E = {
@@ -259,6 +277,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA6434292743457B00AD471E /* ViewController.swift in Sources */,
+				DA64345C27434C5A00AD471E /* ProductManager.swift in Sources */,
+				DA6434582743485A00AD471E /* Product.swift in Sources */,
 				DA6434252743457B00AD471E /* AppDelegate.swift in Sources */,
 				DA6434272743457B00AD471E /* SceneDelegate.swift in Sources */,
 			);
@@ -268,7 +288,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA64343C2743457D00AD471E /* ProductTrackerTests.swift in Sources */,
+				DA64345A27434A5D00AD471E /* ProductManagerTests.swift in Sources */,
+				DA643456274345D400AD471E /* ProductTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +514,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K5DT8G4M9K;
@@ -507,6 +529,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ayumi.ProductTrackerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProductTracker.app/ProductTracker";
@@ -518,6 +541,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K5DT8G4M9K;
