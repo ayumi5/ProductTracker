@@ -12,10 +12,10 @@ class ProductManagerTests: XCTestCase {
     
     var manager: ProductManager!
     let client = Client(name: "Cafe")
-    var product = Product(name: "Coffee beans")
+    let products = [Product(name: "Mocha", category: "Coffee beans")]
     
     override func setUpWithError() throws {
-        manager = ProductManager(product: product, client: client)
+        manager = ProductManager(products: products, client: client)
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
@@ -25,12 +25,13 @@ class ProductManagerTests: XCTestCase {
     
     // MARK: Initialization
     func testInit_ProductAndClientName() {
-        XCTAssertEqual(manager.product.name, "Coffee beans")
+        XCTAssertEqual(manager.products.first?.name, "Mocha")
+        XCTAssertEqual(manager.products.first?.category, "Coffee beans")
         XCTAssertEqual(manager.client.name, "Cafe")
     }
     
     func testInit_SupplierProductCount() {
-        XCTAssertEqual(manager.product.count, 0)
+        XCTAssertEqual(manager.products.count, 1)
     }
     
     func testInit_ClientProductCount() {
@@ -40,25 +41,30 @@ class ProductManagerTests: XCTestCase {
 
     // MARK: Buy From Supplier
     func testBuyFromSupplier_ProductCountDown_ClientStockCountUp() {
-        manager.product.countup()
-        XCTAssertEqual(manager.product.count, 1)
+        XCTAssertEqual(manager.products.count, 1)
         manager.buyFromSupplier()
         
-        XCTAssertEqual(manager.product.count, 0)
+        XCTAssertEqual(manager.products.count, 0)
         XCTAssertEqual(manager.client.stockCount, 1)
     }
     
     func testBuyFromSupplier_ShouldNotBuy_WhenProductCountZero() {
-        XCTAssertEqual(manager.product.count, 0)
+        XCTAssertEqual(manager.products.count, 1)
         manager.buyFromSupplier()
         
-        XCTAssertEqual(manager.product.count, 0)
-        XCTAssertEqual(manager.client.stockCount, 0)
+        XCTAssertEqual(manager.products.count, 0)
+        XCTAssertEqual(manager.client.stockCount, 1)
+    }
+    
+    func testBuyFromSupplier_FirstProductShouldBeSold() {
+        XCTAssertEqual(manager.products.first?.name, "Mocha")
+        manager.buyFromSupplier()
+        
+        XCTAssertEqual(manager.soldProducts.last?.name, "Mocha")
     }
     
     // MARK: Sell To Customer
     func testSellToCustomer_StockCountDown_SoldCountUp() {
-        manager.product.countup()
         manager.buyFromSupplier()
         XCTAssertEqual(manager.client.stockCount, 1)
         XCTAssertEqual(manager.client.soldCount, 0)
@@ -68,26 +74,33 @@ class ProductManagerTests: XCTestCase {
         XCTAssertEqual(manager.client.soldCount, 1)
     }
     
+    
     // MARK: Return From Client
     func testReturnFromClient_ProductCountUp_ClientStockCountDown() {
-        manager.product.countup()
         manager.buyFromSupplier()
-        XCTAssertEqual(manager.product.count, 0)
+        XCTAssertEqual(manager.products.count, 0)
         XCTAssertEqual(manager.client.stockCount, 1)
         
         manager.returnFromClient()
-        XCTAssertEqual(manager.product.count, 1)
+        XCTAssertEqual(manager.products.count, 1)
         XCTAssertEqual(manager.client.stockCount, 0)
     }
     
     func testReturnFromClient_ShouldNotReturn_WhenStockCountZero() {
         XCTAssertEqual(manager.client.stockCount, 0)
-        XCTAssertEqual(manager.product.count, 0)
+        XCTAssertEqual(manager.products.count, 1)
         
         manager.returnFromClient()
         XCTAssertEqual(manager.client.stockCount, 0)
-        XCTAssertEqual(manager.product.count, 0)
+        XCTAssertEqual(manager.products.count, 1)
     }
     
+    func testReturnFromClient_LastSoldProductShouldBeReturned() {
+        manager.buyFromSupplier()
+        XCTAssertEqual(manager.soldProducts.last?.name, "Mocha")
+        
+        manager.returnFromClient()
+        XCTAssertEqual(manager.products.first?.name, "Mocha")
+    }
     
 }

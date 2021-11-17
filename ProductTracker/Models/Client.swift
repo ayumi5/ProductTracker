@@ -25,4 +25,9 @@ class Client {
         stockCount -= 1
         soldCount += 1
     }
+    
+    func returnProduct() {
+        guard stockCount > 0 else { return }
+        stockCount -= 1
+    }
 }

@@ -13,11 +13,11 @@ class ProductTableViewTests: XCTestCase {
     var trackVC: TrackViewController!
     var sut: UITableView!
     let client = Client(name: "Cafe")
-    var fiveProducts = Product(name: "Coffee beans", count: 5)
+    let fiveProducts = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")]
     
     override func setUpWithError() throws {
         trackVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackViewControllerID") as! TrackViewController
-        let productManager = ProductManager(product: fiveProducts, client: client)
+        let productManager = ProductManager(products: fiveProducts, client: client)
         trackVC.productManager = productManager
         trackVC.loadViewIfNeeded()
         sut = trackVC.productTableView
@@ -43,7 +43,7 @@ class ProductTableViewTests: XCTestCase {
     
     func testCell_RowsAtIndex_ShoudDequeueCell() {
         let mock = ProductTableMock()
-        let productManager = ProductManager(product: fiveProducts, client: client)
+        let productManager = ProductManager(products: fiveProducts, client: client)
         let dataSource = ProductDataSource()
         dataSource.productManager = productManager
         mock.dataSource = dataSource
@@ -55,7 +55,7 @@ class ProductTableViewTests: XCTestCase {
     
     func testCell_Config_SetCellData() {
         let mock = ProductTableMock()
-        let productManager = ProductManager(product: fiveProducts, client: client)
+        let productManager = ProductManager(products: fiveProducts, client: client)
         let dataSource = ProductDataSource()
         dataSource.productManager = productManager
         mock.dataSource = dataSource
@@ -64,7 +64,9 @@ class ProductTableViewTests: XCTestCase {
         
         let cell = mock.cellForRow(at: IndexPath(row: 0, section: 0)) as! ProductCellMock
         cell.configName(fiveProducts)
-        XCTAssertEqual(cell.productData?.name, fiveProducts.name)
+        for i in 0..<5 {
+            XCTAssertEqual(cell.productArray[i], fiveProducts[i])
+        }
     }
     
 }
@@ -80,9 +82,9 @@ extension ProductTableViewTests {
     }
     
     class ProductCellMock: ProductCell {
-        var productData: Product?
-        override func configName(_ product: Product) {
-            self.productData = product
+        var productArray = [Product]()
+        override func configName(_ products: [Product]) {
+            self.productArray = products
         }
     }
 }

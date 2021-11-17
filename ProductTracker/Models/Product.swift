@@ -7,23 +7,13 @@
 
 import Foundation
 
-struct Product {
+struct Product: Equatable {
     var name: String
-    var count: Int
+    var category: String
     
-    init(name: String, count: Int = 0) {
+    init(name: String, category: String) {
         self.name = name
-        self.count = count
-    }
-    
-    mutating func countup() {
-        self.count += 1
-    }
-    
-    mutating func countdown() {
-        if self.count > 0 {
-            self.count -= 1
-        }
+        self.category = category
     }
 }
 

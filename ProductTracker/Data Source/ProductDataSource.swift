@@ -16,7 +16,7 @@ class ProductDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
             return 0
         }
 
-        return productManager.product.count
+        return productManager.products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

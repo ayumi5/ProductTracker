@@ -8,17 +8,19 @@
 import Foundation
 
 class ProductManager {
-    var product: Product
+    var products: [Product]
+    var soldProducts = [Product]()
     var client: Client
     
-    init(product: Product, client: Client) {
-        self.product = product
+    init(products: [Product], client: Client) {
+        self.products = products
         self.client = client
     }
     
     func buyFromSupplier() {
-        if product.count > 0 {
-            product.countdown()
+        if products.count > 0 {
+            let sold = products.remove(at: 0)
+            soldProducts.append(sold)
             client.buy()
         }
     }
@@ -29,8 +31,9 @@ class ProductManager {
     
     func returnFromClient() {
         if client.stockCount > 0 {
-            client.sell()
-            product.countup()
+            client.returnProduct()
+            let returned = soldProducts.remove(at: 0)
+            products.append(returned)
         }
     }
 }

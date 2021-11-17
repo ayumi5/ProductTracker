@@ -20,8 +20,7 @@ class ProductCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func configName(_ product: Product) {
-        
+    func configName(_ products: [Product]) {
     }
     
 }

@@ -21,8 +21,8 @@ class TrackViewController: UIViewController {
     
     @IBOutlet weak var productTableView: UITableView!
     @IBOutlet var dataSource: ProductDataSource!
-    
-    var productManager = ProductManager(product: Product(name: "Coffee", count: 10), client: Client(name: "Cafe"))
+
+    var productManager = ProductManager(products: [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")], client: Client(name: "Cafe"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,13 +33,13 @@ class TrackViewController: UIViewController {
     }
     
     private func initView() {
-        productNameLabel.text = productManager.product.name
+        productNameLabel.text = productManager.products.first?.category
         clientNameLabel.text = productManager.client.name
         updateView()
     }
     
     private func updateView() {
-        productCountLabel.text = String(productManager.product.count)
+        productCountLabel.text = String(productManager.products.count)
         stockCountLabel.text = String(productManager.client.stockCount)
         soldCountLabel.text =  String(productManager.client.soldCount)
     }

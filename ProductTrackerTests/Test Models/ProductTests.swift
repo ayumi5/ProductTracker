@@ -11,8 +11,7 @@ import XCTest
 
 class ProductTests: XCTestCase {
 
-    var fiveProducts = Product(name: "Coffee beans", count: 5)
-    var zeroProduct =  Product(name: "Coffee beans")
+    let fiveProducts = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")]
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -23,34 +22,16 @@ class ProductTests: XCTestCase {
     }
     
     // MARK: Initialization
-    func testInit_ProductWithName() {
-        let product = Product(name: "Coffee beans")
+    func testInit_ProductWithNameAndCategory() {
+        let product = Product(name: "Mocha", category: "Coffee beans")
         XCTAssertNotNil(product)
-        XCTAssertEqual(product.name, "Coffee beans")
+        XCTAssertEqual(product.name, "Mocha")
+        XCTAssertEqual(product.category, "Coffee beans")
     }
+    
     
     func testInit_SetProductNameAndCount() {
         XCTAssertNotNil(fiveProducts)
         XCTAssertEqual(fiveProducts.count, 5)
     }
-    
-    // MARK: Count Up
-    func testCountUp() {
-        XCTAssertEqual(fiveProducts.count, 5)
-        fiveProducts.countup()
-        XCTAssertEqual(fiveProducts.count, 6)
-    }
-    
-    // MARK: Count Down
-    func testCoundDown() {
-        XCTAssertEqual(fiveProducts.count, 5)
-        fiveProducts.countdown()
-        XCTAssertEqual(fiveProducts.count, 4)
-    }
-    
-    func testCountDown_ShouldNotCountDown_WhenProductCountIsZero() {
-        zeroProduct.countdown()
-        XCTAssertEqual(zeroProduct.count, 0)
-    }
-    
 }

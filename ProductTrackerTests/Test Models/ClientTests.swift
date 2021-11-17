@@ -58,4 +58,17 @@ class ClientTests: XCTestCase {
         XCTAssertEqual(cafeClient.stockCount, 0)
     }
     
+    // MARK: Return
+    func testReturn_StockCountDown() {
+        cafeClient.buy()
+        XCTAssertEqual(cafeClient.stockCount, 1)
+        cafeClient.returnProduct()
+        XCTAssertEqual(cafeClient.stockCount, 0)
+    }
+    
+    func testReturn_ShoundNotReturn_WhenStockCountZero() {
+        XCTAssertEqual(cafeClient.stockCount, 0)
+        cafeClient.returnProduct()
+        XCTAssertEqual(cafeClient.stockCount, 0)
+    }
 }
