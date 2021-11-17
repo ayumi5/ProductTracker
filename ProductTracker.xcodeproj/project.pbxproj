@@ -25,6 +25,8 @@
 		DA798CFF2743B3D400797DE8 /* ProductTableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA798CFE2743B3D400797DE8 /* ProductTableViewTests.swift */; };
 		DA798D012743B8B600797DE8 /* ProductDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA798D002743B8B600797DE8 /* ProductDataSource.swift */; };
 		DA798D052744881E00797DE8 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA798D042744881E00797DE8 /* ProductCell.swift */; };
+		DAD860012744B73500299456 /* ProductCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD860002744B73500299456 /* ProductCellTests.swift */; };
+		DAD860042744CF4700299456 /* MockExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD860032744CF4700299456 /* MockExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		DA798CFE2743B3D400797DE8 /* ProductTableViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewTests.swift; sourceTree = "<group>"; };
 		DA798D002743B8B600797DE8 /* ProductDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDataSource.swift; sourceTree = "<group>"; };
 		DA798D042744881E00797DE8 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		DAD860002744B73500299456 /* ProductCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCellTests.swift; sourceTree = "<group>"; };
+		DAD860032744CF4700299456 /* MockExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,7 @@
 		DA64343A2743457D00AD471E /* ProductTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
+				DAD860022744CF3600299456 /* Mock */,
 				DA798CFD2743B3B700797DE8 /* Test Views */,
 				DA643463274389AA00AD471E /* Test Controllers */,
 				DA64345D2743719800AD471E /* Test Models */,
@@ -190,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				DA798CFE2743B3D400797DE8 /* ProductTableViewTests.swift */,
+				DAD860002744B73500299456 /* ProductCellTests.swift */,
 			);
 			path = "Test Views";
 			sourceTree = "<group>";
@@ -208,6 +214,14 @@
 				DA798D042744881E00797DE8 /* ProductCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		DAD860022744CF3600299456 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				DAD860032744CF4700299456 /* MockExtension.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,8 +372,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA64346527438ABF00AD471E /* TrackViewControllerTests.swift in Sources */,
+				DAD860042744CF4700299456 /* MockExtension.swift in Sources */,
 				DA64345A27434A5D00AD471E /* ProductManagerTests.swift in Sources */,
 				DA64345F274371B700AD471E /* ClientTests.swift in Sources */,
+				DAD860012744B73500299456 /* ProductCellTests.swift in Sources */,
 				DA643456274345D400AD471E /* ProductTests.swift in Sources */,
 				DA798CFF2743B3D400797DE8 /* ProductTableViewTests.swift in Sources */,
 			);

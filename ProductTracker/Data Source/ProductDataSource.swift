@@ -20,7 +20,9 @@ class ProductDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCellID")!
+        guard let productManager = productManager else { fatalError() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCellID") as! ProductCell
+        cell.configName(productManager.products[indexPath.row])
         return cell
     }
     

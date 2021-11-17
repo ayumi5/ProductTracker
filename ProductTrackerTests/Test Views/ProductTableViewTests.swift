@@ -10,15 +10,20 @@ import XCTest
 @testable import ProductTracker
 class ProductTableViewTests: XCTestCase {
 
-    var trackVC: TrackViewController!
     var sut: UITableView!
     let client = Client(name: "Cafe")
     let fiveProducts = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")]
+    var productManager: ProductManager!
+    var tableMock: ProductTableMock!
+    var dataSource: ProductDataSource!
     
     override func setUpWithError() throws {
-        trackVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackViewControllerID") as! TrackViewController
-        let productManager = ProductManager(products: fiveProducts, client: client)
+        let trackVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackViewControllerID") as! TrackViewController
+        productManager = ProductManager(products: fiveProducts, client: client)
         trackVC.productManager = productManager
+        dataSource = ProductDataSource()
+        dataSource.productManager = productManager
+        tableMock = ProductTableMock.initMock(dataSource: dataSource)
         trackVC.loadViewIfNeeded()
         sut = trackVC.productTableView
         
@@ -42,49 +47,18 @@ class ProductTableViewTests: XCTestCase {
     }
     
     func testCell_RowsAtIndex_ShoudDequeueCell() {
-        let mock = ProductTableMock()
-        let productManager = ProductManager(products: fiveProducts, client: client)
-        let dataSource = ProductDataSource()
-        dataSource.productManager = productManager
-        mock.dataSource = dataSource
-        mock.register(ProductCell.self, forCellReuseIdentifier: "ProductCellID")
-        mock.reloadData()
-        _ = mock.cellForRow(at: IndexPath(row: 0, section: 0))
-        XCTAssertTrue(mock.cellDequeuedProperly)
+        tableMock.reloadData()
+        _ = tableMock.cellForRow(at: IndexPath(row: 0, section: 0))
+        XCTAssertTrue(tableMock.cellDequeuedProperly)
     }
     
     func testCell_Config_SetCellData() {
-        let mock = ProductTableMock()
-        let productManager = ProductManager(products: fiveProducts, client: client)
-        let dataSource = ProductDataSource()
-        dataSource.productManager = productManager
-        mock.dataSource = dataSource
-        mock.register(ProductCellMock.self, forCellReuseIdentifier: "ProductCellID")
-        mock.reloadData()
+        tableMock.reloadData()
         
-        let cell = mock.cellForRow(at: IndexPath(row: 0, section: 0)) as! ProductCellMock
-        cell.configName(fiveProducts)
-        for i in 0..<5 {
-            XCTAssertEqual(cell.productArray[i], fiveProducts[i])
-        }
+        let cell = tableMock.cellForRow(at: IndexPath(row: 0, section: 0)) as! ProductCellMock
+        cell.configName(fiveProducts[0])
+        XCTAssertEqual(cell.productData,fiveProducts[0])
     }
     
 }
 
-extension ProductTableViewTests {
-    class ProductTableMock: UITableView {
-        var cellDequeuedProperly = false
-        
-        override func dequeueReusableCell(withIdentifier identifier: String) -> UITableViewCell? {
-            cellDequeuedProperly = true
-            return super.dequeueReusableCell(withIdentifier: identifier)
-        }
-    }
-    
-    class ProductCellMock: ProductCell {
-        var productArray = [Product]()
-        override func configName(_ products: [Product]) {
-            self.productArray = products
-        }
-    }
-}
