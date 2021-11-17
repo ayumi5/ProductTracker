@@ -19,10 +19,16 @@ class TrackViewController: UIViewController {
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var minusButton: UIButton!
     
+    @IBOutlet weak var productTableView: UITableView!
+    @IBOutlet var dataSource: ProductDataSource!
+    
     var productManager = ProductManager(product: Product(name: "Coffee", count: 10), client: Client(name: "Cafe"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataSource.productManager = productManager
+        productTableView.dataSource = dataSource
+        productTableView.delegate = dataSource
         self.initView()
     }
     

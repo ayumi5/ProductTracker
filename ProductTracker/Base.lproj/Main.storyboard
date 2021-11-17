@@ -62,6 +62,12 @@
                                     <action selector="minusButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hzv-iq-na7"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stock Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4g-90-8wg">
+                                <rect key="frame" x="141" y="274" width="109.33333333333331" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1DG-Gz-5hl">
                                 <rect key="frame" x="151" y="231" width="90" height="35"/>
                                 <constraints>
@@ -79,17 +85,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stock Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4g-90-8wg">
-                                <rect key="frame" x="141" y="274" width="109.66666666666669" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="VWK-Bi-gNU">
+                                <rect key="frame" x="16" y="551" width="358" height="247"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductCellID" id="IuZ-YB-7DS" customClass="ProductCell" customModule="ProductTracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="358" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IuZ-YB-7DS" id="ghi-QA-Bv4">
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="gxG-4V-cTR" firstAttribute="trailing" secondItem="yIO-Gb-VXh" secondAttribute="trailing" id="1Kf-eS-fSo"/>
+                            <constraint firstItem="VWK-Bi-gNU" firstAttribute="top" secondItem="954-8h-aXN" secondAttribute="bottom" constant="40" id="8JW-tG-2PR"/>
                             <constraint firstItem="xFz-uf-iyw" firstAttribute="top" secondItem="2F5-gT-ZHU" secondAttribute="bottom" constant="8" id="8lE-eA-azg"/>
                             <constraint firstItem="Bu9-l0-yKO" firstAttribute="top" secondItem="xFz-uf-iyw" secondAttribute="bottom" constant="8" id="Ckm-xo-rci"/>
                             <constraint firstItem="gxG-4V-cTR" firstAttribute="leading" secondItem="yIO-Gb-VXh" secondAttribute="leading" id="E0U-XW-N90"/>
@@ -100,7 +115,9 @@
                             <constraint firstItem="gxG-4V-cTR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="OJy-Zk-4Yg"/>
                             <constraint firstItem="gxG-4V-cTR" firstAttribute="centerX" secondItem="954-8h-aXN" secondAttribute="centerX" constant="1" id="PQf-fU-MGg"/>
                             <constraint firstItem="yIO-Gb-VXh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="93" id="PUq-Rr-mdj"/>
+                            <constraint firstItem="VWK-Bi-gNU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Tqf-WQ-c7f"/>
                             <constraint firstItem="2F5-gT-ZHU" firstAttribute="top" secondItem="c4g-90-8wg" secondAttribute="bottom" constant="9" id="VqK-fH-rPE"/>
+                            <constraint firstItem="VWK-Bi-gNU" firstAttribute="centerX" secondItem="954-8h-aXN" secondAttribute="centerX" id="Xj5-xg-Ggw"/>
                             <constraint firstItem="c4g-90-8wg" firstAttribute="top" secondItem="1DG-Gz-5hl" secondAttribute="bottom" constant="8" id="duO-ex-z6D"/>
                             <constraint firstItem="xFz-uf-iyw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="108" id="e2Z-Xp-HQR"/>
                             <constraint firstItem="2F5-gT-ZHU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="150" id="eHw-T8-QwJ"/>
@@ -112,21 +129,25 @@
                             <constraint firstItem="1DG-Gz-5hl" firstAttribute="centerX" secondItem="yIO-Gb-VXh" secondAttribute="centerX" id="of3-s0-crQ"/>
                             <constraint firstItem="1DG-Gz-5hl" firstAttribute="top" secondItem="gxG-4V-cTR" secondAttribute="bottom" constant="88" id="v38-rk-ShA"/>
                             <constraint firstItem="c4g-90-8wg" firstAttribute="centerX" secondItem="954-8h-aXN" secondAttribute="centerX" constant="0.66666666666668561" id="vn4-ob-Cmt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VWK-Bi-gNU" secondAttribute="bottom" constant="12" id="vnN-x7-EoA"/>
                             <constraint firstItem="gxG-4V-cTR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="109" id="xTl-Sw-Zs9"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="clientNameLabel" destination="xFz-uf-iyw" id="FaI-Ux-93K"/>
+                        <outlet property="dataSource" destination="GO2-5d-BQV" id="npG-jL-Ipx"/>
                         <outlet property="minusButton" destination="Bu9-l0-yKO" id="Dwc-9r-eNr"/>
                         <outlet property="plusButton" destination="2F5-gT-ZHU" id="WL8-r0-u1d"/>
                         <outlet property="productCountLabel" destination="gxG-4V-cTR" id="PjM-Mw-IWq"/>
                         <outlet property="productNameLabel" destination="yIO-Gb-VXh" id="vun-Ic-kOf"/>
+                        <outlet property="productTableView" destination="VWK-Bi-gNU" id="zyJ-no-hUE"/>
                         <outlet property="returnButton" destination="1DG-Gz-5hl" id="xv7-Kr-hFW"/>
                         <outlet property="soldCountLabel" destination="954-8h-aXN" id="gBN-7e-Qbj"/>
                         <outlet property="stockCountLabel" destination="c4g-90-8wg" id="CT9-0c-hhG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <customObject id="GO2-5d-BQV" customClass="ProductDataSource" customModule="ProductTracker" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="7.6923076923076916" y="65.402843601895725"/>
         </scene>

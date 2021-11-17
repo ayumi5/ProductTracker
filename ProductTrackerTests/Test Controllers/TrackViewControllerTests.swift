@@ -28,7 +28,7 @@ class TrackViewControllerTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class..
     }
     
-    // MARK: Initialize
+    // MARK: Nil Checks
     func testInitTrackVC_ProductManager_ShoudNotBeNil() {
         XCTAssertNotNil(sut.productManager)
     }
@@ -41,6 +41,28 @@ class TrackViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.soldCountLabel)
     }
     
+    func testInitTrackVC_ProductTable_ShouldNotBeNil() {
+        XCTAssertNotNil(sut.productTableView)
+    }
+    
+    // MARK: Data Source
+    func testDataSource_ViewDidLoad_SetsTableViewDataSource() {
+        XCTAssertNotNil(sut.productTableView.dataSource)
+        XCTAssertTrue(sut.productTableView.dataSource is ProductDataSource)
+    }
+    
+    // MARK: Delegate
+    func testDelegate_ViewDidLoad_SetsTableViewDelegate() {
+        XCTAssertNotNil(sut.productTableView.delegate)
+        XCTAssertTrue(sut.productTableView.delegate is ProductDataSource)
+    }
+    
+    // MARK: Data Service Assumptions
+    func testDataSource_ViewDidLoad_SingleDataServiceObject() {
+        XCTAssertEqual(sut.productTableView.dataSource as! ProductDataSource, sut.productTableView.delegate as! ProductDataSource)
+    }
+    
+    // MARK: Initialization
     func testInitTrackVC_ProductNameAndCountLabels() {
         XCTAssertEqual(sut.productNameLabel?.text, fiveProducts.name)
         XCTAssertEqual(sut.productCountLabel?.text, "5")
