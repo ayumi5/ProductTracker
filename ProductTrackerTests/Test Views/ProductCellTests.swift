@@ -28,10 +28,16 @@ class ProductCellTests: XCTestCase {
     }
 
     // MARK: Configuration
-    func testCell_Config_ShouldSetLabelsToProductData() {
+    func testCell_Config_ShouldSetLabelsToProductData_1() {
         let cell = productTableView.dequeueReusableCell(withIdentifier: "ProductCellID", for: IndexPath(row: 0, section: 0)) as! ProductCell
         cell.configName(productManager.products[0])
         XCTAssertEqual(cell.textLabel?.text, "Mocha")
+    }
+    
+    func testCell_Config_ShouldSetLabelsToProductData_2() {
+        let cell = productTableView.dequeueReusableCell(withIdentifier: "ProductCellID", for: IndexPath(row: 0, section: 0)) as! ProductCell
+        cell.configName(productManager.products[1])
+        XCTAssertEqual(cell.textLabel?.text, "Blue Mountain")
     }
 
 }

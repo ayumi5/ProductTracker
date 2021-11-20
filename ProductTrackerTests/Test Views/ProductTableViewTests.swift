@@ -16,9 +16,10 @@ class ProductTableViewTests: XCTestCase {
     var productManager: ProductManager!
     var tableMock: ProductTableMock!
     var dataSource: ProductDataSource!
+    var trackVC: TrackViewController!
     
     override func setUpWithError() throws {
-        let trackVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackViewControllerID") as! TrackViewController
+        trackVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackViewControllerID") as! TrackViewController
         productManager = ProductManager(products: fiveProducts, client: client)
         trackVC.productManager = productManager
         dataSource = ProductDataSource()
@@ -36,6 +37,41 @@ class ProductTableViewTests: XCTestCase {
     // MARK: Section
     func testTableViewSection_Returns_ProductsCount() {
         XCTAssertEqual(sut.numberOfRows(inSection: 0), 5)
+    }
+    
+    func testTableViewSection_Returns_ProductsCount_WhenProductSold() {
+        XCTAssertEqual(sut.numberOfRows(inSection: 0), 5)
+        trackVC.plusButton.sendActions(for: .touchUpInside)
+        XCTAssertEqual(sut.numberOfRows(inSection: 0), 4)
+        
+    }
+    
+    func testTableViewSection_Returns_ProductsCount_WhenProductReturned() {
+        trackVC.plusButton.sendActions(for: .touchUpInside)
+        XCTAssertEqual(sut.numberOfRows(inSection: 0), 4)
+        
+        trackVC.returnButton.sendActions(for: .touchUpInside)
+        XCTAssertEqual(sut.numberOfRows(inSection: 0), 5)
+    }
+    
+    // MARK: Row
+    func testTableViewRow_Removes_FirstProduct_WhenProductSold() {
+        let cell1 = sut.cellForRow(at: IndexPath(row: 0, section: 0))
+        XCTAssertEqual(cell1?.textLabel?.text, "Mocha")
+        
+        trackVC.plusButton.sendActions(for: .touchUpInside)
+        let cell2 = sut.cellForRow(at: IndexPath(row: 0, section: 0))
+        XCTAssertEqual(cell2?.textLabel?.text, "Blue Mountain")
+    }
+    
+    func testTableViewRow_RestoresProductToLastRow_WhenProductReturned() {
+        trackVC.plusButton.sendActions(for: .touchUpInside)
+        let cell1 = sut.cellForRow(at: IndexPath(row: 0, section: 0))
+        XCTAssertEqual(cell1?.textLabel?.text, "Blue Mountain")
+        
+        trackVC.returnButton.sendActions(for: .touchUpInside)
+        let cell2 = sut.cellForRow(at: IndexPath(row: 4, section: 0))
+        XCTAssertEqual(cell2?.textLabel?.text, "Mocha")
     }
     
     // MARK: Cell

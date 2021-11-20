@@ -42,6 +42,7 @@ class TrackViewController: UIViewController {
         productCountLabel.text = String(productManager.products.count)
         stockCountLabel.text = String(productManager.client.stockCount)
         soldCountLabel.text =  String(productManager.client.soldCount)
+        productTableView.reloadData()
     }
 
     @IBAction func returnButtonTapped(_ sender: UIButton) {

@@ -19,6 +19,7 @@ class ProductManager {
     
     func buyFromSupplier() {
         if products.count > 0 {
+            // TODO: check later
             let sold = products.remove(at: 0)
             soldProducts.append(sold)
             client.buy()
@@ -32,7 +33,8 @@ class ProductManager {
     func returnFromClient() {
         if client.stockCount > 0 {
             client.returnProduct()
-            let returned = soldProducts.remove(at: 0)
+            // TODO: check later
+            let returned = soldProducts.removeLast()
             products.append(returned)
         }
     }
