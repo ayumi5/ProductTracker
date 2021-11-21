@@ -11,29 +11,13 @@ import XCTest
 
 class TrackViewControllerTests: XCTestCase {
     
-    var sut: TrackViewController!
-    var productManager: ProductManager!
-    let client = Client(name: "Cafe")
-    let fiveProducts = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")]
-
-    override func setUpWithError() throws {
-        sut = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackViewControllerID") as! TrackViewController
-        productManager = ProductManager(products: fiveProducts, client: client)
-        sut.productManager = productManager
-        sut.loadViewIfNeeded()
-    }
-
-    override func tearDownWithError() throws {
-        sut = nil
-        // Put teardown code here. This method is called after the invocation of each test method in the class..
-    }
-    
     // MARK: Nil Checks
     func testInitTrackVC_ProductManager_ShoudNotBeNil() {
-        XCTAssertNotNil(sut.productManager)
+        XCTAssertNotNil(makeSUT().productManager)
     }
     
     func testInitTrackVC_UIComponent_ShouldNotNil() {
+        let sut = makeSUT()
         XCTAssertNotNil(sut.productCountLabel)
         XCTAssertNotNil(sut.productNameLabel)
         XCTAssertNotNil(sut.stockCountLabel)
@@ -42,39 +26,47 @@ class TrackViewControllerTests: XCTestCase {
     }
     
     func testInitTrackVC_ProductTable_ShouldNotBeNil() {
-        XCTAssertNotNil(sut.productTableView)
+        XCTAssertNotNil(makeSUT().productTableView)
     }
     
     // MARK: Data Source
     func testDataSource_ViewDidLoad_SetsTableViewDataSource() {
+        let sut = makeSUT()
         XCTAssertNotNil(sut.productTableView.dataSource)
         XCTAssertTrue(sut.productTableView.dataSource is ProductDataSource)
     }
     
     // MARK: Delegate
     func testDelegate_ViewDidLoad_SetsTableViewDelegate() {
+        let sut = makeSUT()
         XCTAssertNotNil(sut.productTableView.delegate)
         XCTAssertTrue(sut.productTableView.delegate is ProductDataSource)
     }
     
     // MARK: Data Service Assumptions
     func testDataSource_ViewDidLoad_SingleDataServiceObject() {
+        let sut = makeSUT()
         XCTAssertEqual(sut.productTableView.dataSource as! ProductDataSource, sut.productTableView.delegate as! ProductDataSource)
     }
     
     // MARK: Initialization
     func testInitTrackVC_ProductNameAndCountLabels() {
-        XCTAssertEqual(sut.productNameLabel?.text, fiveProducts.first?.category)
+        let products = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")]
+        let sut = makeSUT(products: products)
+        XCTAssertEqual(sut.productNameLabel?.text, "Coffee beans")
         XCTAssertEqual(sut.productCountLabel?.text, "5")
     }
     
     func testInitTrackVC_ClientNameAndCountLabels() {
-        XCTAssertEqual(sut.clientNameLabel?.text, client.name)
+        let client = Client(name: "Bookshop")
+        let sut = makeSUT(client: client)
+        XCTAssertEqual(sut.clientNameLabel?.text, "Bookshop")
         XCTAssertEqual(sut.stockCountLabel?.text, "0")
         XCTAssertEqual(sut.soldCountLabel?.text, "0")
     }
     
     func testInitTrackVC_Buttons() {
+        let sut = makeSUT()
         XCTAssertEqual(sut.plusButton.titleLabel?.text, "+")
         XCTAssertEqual(sut.minusButton.titleLabel?.text, "-")
         XCTAssertEqual(sut.returnButton.titleLabel?.text, "Return")
@@ -82,29 +74,29 @@ class TrackViewControllerTests: XCTestCase {
     
     // MARK: Select Button
     func testSelect_PlusButton_ShouldProductCountDownAndClientStockCountUp() {
+        let products = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans")]
+        let sut = makeSUT(products: products)
         sut.plusButton.sendActions(for: .touchUpInside)
-        XCTAssertEqual(sut.productManager.products.count, 4)
+        XCTAssertEqual(sut.productManager.products.count, 2)
         XCTAssertEqual(sut.productManager.client.stockCount, 1)
-        XCTAssertEqual(sut.productCountLabel.text, "4")
+        XCTAssertEqual(sut.productCountLabel.text, "2")
         XCTAssertEqual(sut.stockCountLabel.text, "1")
     }
     
     func testSelect_PlusButton_ShouldNotDoAnything_WhenProductCountZero() {
-        for _ in 0..<5 {
-            sut.plusButton.sendActions(for: .touchUpInside)
-        }
-        XCTAssertEqual(sut.productManager.products.count, 0)
-        XCTAssertEqual(sut.productManager.client.stockCount, 5)
+        let sut = makeSUT()
         
         sut.plusButton.sendActions(for: .touchUpInside)
         XCTAssertEqual(sut.productManager.products.count, 0)
-        XCTAssertEqual(sut.productManager.client.stockCount, 5)
+        XCTAssertEqual(sut.productManager.client.stockCount, 0)
         XCTAssertEqual(sut.productCountLabel.text, "0")
-        XCTAssertEqual(sut.stockCountLabel.text, "5")
+        XCTAssertEqual(sut.stockCountLabel.text, "0")
         
     }
 
     func testSelect_MinusButton_ShoudClientStockCountDownAndClientSoldCountUp() {
+        let products = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans")]
+        let sut = makeSUT(products: products)
         sut.plusButton.sendActions(for: .touchUpInside)
         XCTAssertEqual(sut.productManager.client.stockCount, 1)
         XCTAssertEqual(sut.productManager.client.soldCount, 0)
@@ -117,9 +109,7 @@ class TrackViewControllerTests: XCTestCase {
     }
     
     func testSelect_MinusButton_ShouldNotDoAnything_WhenClientStockCountZero() {
-        XCTAssertEqual(sut.productManager.client.stockCount, 0)
-        XCTAssertEqual(sut.productManager.client.soldCount, 0)
-        
+        let sut = makeSUT()
         sut.minusButton.sendActions(for: .touchUpInside)
         XCTAssertEqual(sut.productManager.client.stockCount, 0)
         XCTAssertEqual(sut.productManager.client.soldCount, 0)
@@ -129,6 +119,8 @@ class TrackViewControllerTests: XCTestCase {
     }
     
     func testSelect_ReturnButton_ShouldProductCountUpAndClientStockCountDown() {
+        let products = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")]
+        let sut = makeSUT(products: products)
         sut.plusButton.sendActions(for: .touchUpInside)
         XCTAssertEqual(sut.productManager.products.count, 4)
         XCTAssertEqual(sut.productManager.client.stockCount, 1)
@@ -141,13 +133,22 @@ class TrackViewControllerTests: XCTestCase {
     }
     
     func testSelect_ReturnButton_ShouldNotDoAnything_WhenClientStockCountZero() {
-        XCTAssertEqual(sut.productManager.products.count, 5)
-        XCTAssertEqual(sut.productManager.client.stockCount, 0)
+        let products = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")]
+        let sut = makeSUT(products: products)
         
         sut.returnButton.sendActions(for: .touchUpInside)
         XCTAssertEqual(sut.productManager.products.count, 5)
         XCTAssertEqual(sut.productManager.client.stockCount, 0)
         XCTAssertEqual(sut.productCountLabel.text, "5")
         XCTAssertEqual(sut.stockCountLabel.text, "0")
+    }
+}
+
+private extension TrackViewControllerTests {
+    func makeSUT(products: [Product] = [], client: Client = Client(name: "Cafe")) -> TrackViewController {
+        let sut = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackViewControllerID") as! TrackViewController
+        sut.productManager = ProductManager(products: products, client: client)
+        _ = sut.view
+        return sut
     }
 }

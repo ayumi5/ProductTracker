@@ -9,8 +9,8 @@ import Foundation
 
 class Client {
     var name: String
-    var stockCount = 0
-    var soldCount = 0
+    private(set) var stockCount = 0
+    private(set) var soldCount = 0
     
     init(name: String) {
         self.name = name
