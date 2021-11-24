@@ -89,7 +89,6 @@ class ProductTableViewTests: XCTestCase {
 
         let cell = tableMock.cellForRow(at: IndexPath(row: 0, section: 0)) as! ProductCellMock
         
-        cell.configName(product)
         XCTAssertEqual(cell.productData, product)
     }
     
