@@ -22,41 +22,41 @@ class TrackViewController: UIViewController {
     @IBOutlet weak var productTableView: UITableView!
     @IBOutlet var dataSource: ProductDataSource!
 
-    var productManager = ProductManager(products: [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")], client: Client(name: "Cafe"))
+    var productService: ProductService = ProductManager(products: [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")], client: Client(name: "Cafe"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataSource.productManager = productManager
+        dataSource.productService = productService
         productTableView.dataSource = dataSource
         productTableView.delegate = dataSource
         self.initView()
     }
     
     private func initView() {
-        productNameLabel.text = productManager.products.first?.category
-        clientNameLabel.text = productManager.client.name
+        productNameLabel.text = productService.products.first?.category
+        clientNameLabel.text = productService.client.name
         updateView()
     }
     
     private func updateView() {
-        productCountLabel.text = String(productManager.products.count)
-        stockCountLabel.text = String(productManager.client.stockCount)
-        soldCountLabel.text =  String(productManager.client.soldCount)
+        productCountLabel.text = String(productService.products.count)
+        stockCountLabel.text = String(productService.client.stockCount)
+        soldCountLabel.text =  String(productService.client.soldCount)
         productTableView.reloadData()
     }
 
     @IBAction func returnButtonTapped(_ sender: UIButton) {
-        productManager.returnFromClient()
+        productService.returnFromClient()
         updateView()
     }
     
     @IBAction func plusButtonTapped(_ sender: UIButton) {
-        productManager.buyFromSupplier()
+        productService.buyFromSupplier()
         updateView()
     }
     
     @IBAction func minusButtonTapped(_ sender: UIButton) {
-        productManager.sellToCustomer()
+        productService.sellToCustomer()
         updateView()
     }
     

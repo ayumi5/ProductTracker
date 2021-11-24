@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 class ProductDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
-    var productManager: ProductManager?
+    var productService: ProductService?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let productManager = productManager else {
+        guard let productManager = productService else {
             return 0
         }
 
@@ -20,7 +20,7 @@ class ProductDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let productManager = productManager else { fatalError() }
+        guard let productManager = productService else { fatalError() }
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCellID") as! ProductCell
         cell.configName(productManager.products[indexPath.row])
         return cell

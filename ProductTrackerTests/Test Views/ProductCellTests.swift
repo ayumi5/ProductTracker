@@ -35,7 +35,7 @@ private extension ProductCellTests {
     
     func makeTrackViewContoller(productManager: ProductManager) -> TrackViewController {
         let trackVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackViewControllerID") as! TrackViewController
-        trackVC.productManager = productManager
+        trackVC.productService = productManager
         _ = trackVC.view
         return trackVC
     }

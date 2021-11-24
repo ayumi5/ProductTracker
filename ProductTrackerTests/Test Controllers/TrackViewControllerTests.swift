@@ -13,7 +13,7 @@ class TrackViewControllerTests: XCTestCase {
     
     // MARK: Nil Checks
     func testInitTrackVC_ProductManager_ShoudNotBeNil() {
-        XCTAssertNotNil(makeSUT().productManager)
+        XCTAssertNotNil(makeSUT().productService)
     }
     
     func testInitTrackVC_UIComponent_ShouldNotNil() {
@@ -77,8 +77,8 @@ class TrackViewControllerTests: XCTestCase {
         let products = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans")]
         let sut = makeSUT(products: products)
         sut.plusButton.sendActions(for: .touchUpInside)
-        XCTAssertEqual(sut.productManager.products.count, 2)
-        XCTAssertEqual(sut.productManager.client.stockCount, 1)
+        XCTAssertEqual(sut.productService.products.count, 2)
+        XCTAssertEqual(sut.productService.client.stockCount, 1)
         XCTAssertEqual(sut.productCountLabel.text, "2")
         XCTAssertEqual(sut.stockCountLabel.text, "1")
     }
@@ -87,8 +87,8 @@ class TrackViewControllerTests: XCTestCase {
         let sut = makeSUT()
         
         sut.plusButton.sendActions(for: .touchUpInside)
-        XCTAssertEqual(sut.productManager.products.count, 0)
-        XCTAssertEqual(sut.productManager.client.stockCount, 0)
+        XCTAssertEqual(sut.productService.products.count, 0)
+        XCTAssertEqual(sut.productService.client.stockCount, 0)
         XCTAssertEqual(sut.productCountLabel.text, "0")
         XCTAssertEqual(sut.stockCountLabel.text, "0")
         
@@ -98,12 +98,12 @@ class TrackViewControllerTests: XCTestCase {
         let products = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans")]
         let sut = makeSUT(products: products)
         sut.plusButton.sendActions(for: .touchUpInside)
-        XCTAssertEqual(sut.productManager.client.stockCount, 1)
-        XCTAssertEqual(sut.productManager.client.soldCount, 0)
+        XCTAssertEqual(sut.productService.client.stockCount, 1)
+        XCTAssertEqual(sut.productService.client.soldCount, 0)
         
         sut.minusButton.sendActions(for: .touchUpInside)
-        XCTAssertEqual(sut.productManager.client.stockCount, 0)
-        XCTAssertEqual(sut.productManager.client.soldCount, 1)
+        XCTAssertEqual(sut.productService.client.stockCount, 0)
+        XCTAssertEqual(sut.productService.client.soldCount, 1)
         XCTAssertEqual(sut.stockCountLabel.text, "0")
         XCTAssertEqual(sut.soldCountLabel.text, "1")
     }
@@ -111,8 +111,8 @@ class TrackViewControllerTests: XCTestCase {
     func testSelect_MinusButton_ShouldNotDoAnything_WhenClientStockCountZero() {
         let sut = makeSUT()
         sut.minusButton.sendActions(for: .touchUpInside)
-        XCTAssertEqual(sut.productManager.client.stockCount, 0)
-        XCTAssertEqual(sut.productManager.client.soldCount, 0)
+        XCTAssertEqual(sut.productService.client.stockCount, 0)
+        XCTAssertEqual(sut.productService.client.soldCount, 0)
         XCTAssertEqual(sut.stockCountLabel.text, "0")
         XCTAssertEqual(sut.soldCountLabel.text, "0")
         
@@ -122,12 +122,12 @@ class TrackViewControllerTests: XCTestCase {
         let products = [Product(name: "Mocha", category: "Coffee beans"), Product(name: "Blue Mountain", category: "Coffee beans"), Product(name: "Kilimanjaro", category: "Coffee beans"), Product(name: "Kona", category: "Coffee beans"), Product(name: "Brazil", category: "Coffee beans")]
         let sut = makeSUT(products: products)
         sut.plusButton.sendActions(for: .touchUpInside)
-        XCTAssertEqual(sut.productManager.products.count, 4)
-        XCTAssertEqual(sut.productManager.client.stockCount, 1)
+        XCTAssertEqual(sut.productService.products.count, 4)
+        XCTAssertEqual(sut.productService.client.stockCount, 1)
         
         sut.returnButton.sendActions(for: .touchUpInside)
-        XCTAssertEqual(sut.productManager.products.count, 5)
-        XCTAssertEqual(sut.productManager.client.stockCount, 0)
+        XCTAssertEqual(sut.productService.products.count, 5)
+        XCTAssertEqual(sut.productService.client.stockCount, 0)
         XCTAssertEqual(sut.productCountLabel.text, "5")
         XCTAssertEqual(sut.stockCountLabel.text, "0")
     }
@@ -137,8 +137,8 @@ class TrackViewControllerTests: XCTestCase {
         let sut = makeSUT(products: products)
         
         sut.returnButton.sendActions(for: .touchUpInside)
-        XCTAssertEqual(sut.productManager.products.count, 5)
-        XCTAssertEqual(sut.productManager.client.stockCount, 0)
+        XCTAssertEqual(sut.productService.products.count, 5)
+        XCTAssertEqual(sut.productService.client.stockCount, 0)
         XCTAssertEqual(sut.productCountLabel.text, "5")
         XCTAssertEqual(sut.stockCountLabel.text, "0")
     }
@@ -147,7 +147,7 @@ class TrackViewControllerTests: XCTestCase {
 private extension TrackViewControllerTests {
     func makeSUT(products: [Product] = [], client: Client = Client(name: "Cafe")) -> TrackViewController {
         let sut = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackViewControllerID") as! TrackViewController
-        sut.productManager = ProductManager(products: products, client: client)
+        sut.productService = ProductManager(products: products, client: client)
         _ = sut.view
         return sut
     }

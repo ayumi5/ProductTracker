@@ -7,7 +7,18 @@
 
 import Foundation
 
-class ProductManager {
+
+protocol ProductService {
+    var products: [Product] { get set }
+    var soldProducts: [Product]  { get set }
+    var client: Client { get set }
+    
+    func buyFromSupplier()
+    func sellToCustomer()
+    func returnFromClient()
+}
+
+class ProductManager: ProductService {
     var products: [Product]
     var soldProducts = [Product]()
     var client: Client

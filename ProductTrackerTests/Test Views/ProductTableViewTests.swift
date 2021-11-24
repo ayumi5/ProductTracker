@@ -72,7 +72,7 @@ class ProductTableViewTests: XCTestCase {
     
     func testCell_RowsAtIndex_ShoudDequeueCell() {
         let dataSource = ProductDataSource()
-        dataSource.productManager = makeProductManager(products: [Product(name: "Mocha", category: "Coffee beans")])
+        dataSource.productService = makeProductManager(products: [Product(name: "Mocha", category: "Coffee beans")])
         let tableMock = ProductTableMock.initMock(dataSource: dataSource)
         
         tableMock.reloadData()
@@ -83,7 +83,7 @@ class ProductTableViewTests: XCTestCase {
     func testCell_Config_SetCellData() {
         let product = Product(name: "Mocha", category: "Coffee beans")
         let dataSource = ProductDataSource()
-        dataSource.productManager = makeProductManager(products: [product])
+        dataSource.productService = makeProductManager(products: [product])
         let tableMock = ProductTableMock.initMock(dataSource: dataSource)
         tableMock.reloadData()
 
@@ -102,7 +102,7 @@ private extension ProductTableViewTests {
     
     func makeMockSut(productManager: ProductManager) -> ProductTableMock {
         let dataSource = ProductDataSource()
-        dataSource.productManager = productManager
+        dataSource.productService = productManager
         return ProductTableMock.initMock(dataSource: dataSource)
     }
     
@@ -112,7 +112,7 @@ private extension ProductTableViewTests {
     
     func makeTrackViewContoller(productManager: ProductManager) -> TrackViewController {
         let trackVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackViewControllerID") as! TrackViewController
-        trackVC.productManager = productManager
+        trackVC.productService = productManager
         _ = trackVC.view
         return trackVC
     }
